@@ -22,7 +22,7 @@ def check_balanced_parenthesis(paren_string: str):
             s.push(bracket_sign)
         elif bracket_sign in open_close_brackets_map.keys():
             complementary_bracket = open_close_brackets_map.get(bracket_sign)
-            if s.peek() == complementary_bracket:
+            if s.top() == complementary_bracket:
                 s.pop()
     if s.is_empty():
         return True
