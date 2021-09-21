@@ -91,6 +91,79 @@ class LinkedList:
                 self.head = curr_node.next
             else:
                 prev_node.next = curr_node.next
+
+    def swap_node(self, key1, key2):
+        if key1 == key2:
+            return None
+        
+        curr_node1 = self.head
+        key1_node = None
+        prev_node1 = None
+        next_node1 = None
+        while curr_node1 is not None:
+            if curr_node1.data == key1:
+                key1_node = curr_node1
+                break
+            prev_node1 = curr_node1
+            curr_node1 = curr_node1.next
+        
+        curr_node2 = self.head
+        key2_node = None
+        prev_node2 = None
+        next_node2 = None
+        while curr_node2 is not None:
+            if curr_node2.data == key2:
+                key2_node = curr_node2
+                break
+            prev_node2 = curr_node2
+            curr_node2 = curr_node2.next
+
+        # check if key1 and key2 are present in linked list
+        if not key1_node:
+            print(f"{key1} is not present in linked list")
+            return None
+        if not key2_node:
+            print(f"{key2} is not present in the linked list")
+            return None
+        # now check if prev_node1 is not null 
+        # if its null it means key1 is the head
+        if not prev_node1:
+            # in this case its a head node
+            # now make the other node as head node
+            print('inside if 1')
+            next_node1 = key1_node.next
+            next_node2 = key2_node.next
+
+            self.head = key2_node
+            key2_node.next = next_node1
+
+            prev_node2.next = key1_node
+            key1_node.next = next_node2
+        elif not prev_node2:
+            # in this case key2 is head node
+            print('inside if 2')
+            next_node2 = key2_node.next
+            next_node1 = key1_node.next
+
+            self.head = key1_node
+            key1_node.next = next_node2
+
+            prev_node1.next = key2_node
+            key2_node.next = next_node1
+        else:
+            print('inside else')
+            # if none of them are head node
+            next_node1 = key1_node.next
+            next_node2 = key2_node.next
+
+            prev_node1.next = key2_node
+            key2_node.next = next_node1
+
+            prev_node2.next = key1_node
+            key1_node.next = next_node2
+
+             
+
    
     def print(self):
         curr_node = self.head
@@ -143,6 +216,11 @@ def main():
     llist.print()
     print(llist.len_iterative())
     print(llist.len_recursive(llist.head))
+    llist.swap_node(1, 3)
+    llist.print()
+    llist.swap_node(3, 2)
+    # print(llist.len_iterative())
+    # llist.print()
 
 if __name__ == '__main__':
     main()
